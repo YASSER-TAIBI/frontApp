@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+import { FULL_ROUTES } from './routes/full-layout.routes';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
 
-  { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
-  { path: 'activite', loadChildren: () => import('./activite/activite.module').then(m => m.ActiviteModule) }, 
-  { path: 'leaveRequest', loadChildren: () => import('./leave-request/leave-request.module').then(m => m.LeaveRequestModule) }, 
-  { path: 'listLeave', loadChildren: () => import('./list-leave/list-leave.module').then(m => m.ListLeaveModule) }, 
-  { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) }, 
-  { path: 'updatePassword', loadChildren: () => import('./update-password/update-password.module').then(m => m.UpdatePasswordModule) },
+  //{ path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent},
+  { path: '', component: HomeComponent,
+children : FULL_ROUTES, canActivate: [AuthGuard]
 
-  { path: 'logout', loadChildren: () => import('./logout/logout.module').then(m => m.LogoutModule) },
-
-  { path: 'help', loadChildren: () => import('./help/help.module').then(m => m.HelpModule) }
-  
+} 
 ];
 
 @NgModule({
