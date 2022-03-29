@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
   constructor(private auth : AuthService, private router: Router){
   }
   canActivate(){
-   if(this.auth.IsLoggedIn()){
+   if(this.auth.isTokenExpired){
     return true;
    }
    alert("Vous n'êtes pas connecté");

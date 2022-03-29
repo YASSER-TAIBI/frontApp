@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-//import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-//import { Router } from '@angular/router';
+import { Router } from '@angular/router';
+
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,42 +11,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-//  public formValidate !: FormGroup;
- // constructor(private formBuilder : FormBuilder,
- //   private router : Router) { localStorage.clear() }
+  email: String;
+  password: String;
 
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private flashMessage: FlashMessagesService
+    ) { }
 
   ngOnInit(): void {
-
-  //  this.formValidate = this.formBuilder.group({
-  //    username : ['',Validators.required],
-  //    password : ['',Validators.required],
-
-
-//})
-
-
   }
-  //login(): void{
-  //  var isChecked = true;
-  //  if(!this.formValidate.valid){
-   //   for(var a in this.formValidate.controls){
-    //     this.formValidate.controls[a].markAsDirty();
-     //    this.formValidate.controls[a].updateValueAndValidity();
-      //   isChecked = false;
-    
-    //}
-    //}
-    
-    //if(this.formValidate.valid){
-    // alert('Logged in Successfully')
-    // console.log(this.formValidate.value)
-    // localStorage.setItem('token',"eyJhbGcioiJIUZI1NiIsInR5cCI6IkpXVC39.eyJJc3N1ZXIigiJhZG1pbkAxMjMiLCJBZG1pbi16InRydwUiLCJ1bmlxdwVfbmFtZSI6ImFkbWluQDEyMyISImV4cCI6MTYyMTQONjk2NywiaXNIjoiYWRtaW5AMTIZIiwiYXVKIjoiaHRecHM6Ly9sb2NhbGhvc3Q6NDQZNDcvIne.24G9y5rGPMJ4UiuHb_r21_q1KFBqulnGS_JUva3jYuA")
-    // this.formValidate.value.username=="yasser@gmail.com" ? localStorage.setItem( 'userType','employee') : localStorage.setItem('userType','admin')
-    // this.formValidate.reset();
-    // this.router.navigate(['main'])
-    
-    
-  //  }
-  //}
+
+  onLoginSubmit() {
+
+    const user = {
+      email: this.email,
+      password: this.password
+    };
+
+    this.authService.authenticateUser(user).subscribe(data => {
+      if (data.success) {
+        this.authService.storeUserData(data.token, data.user);
+        this.flashMessage.show('You are now logged in', {
+          cssClass: 'alert-success',
+          timeout: 5000});
+        this.router.navigate(['/home/dashboard']);
+      } else {
+        this.flashMessage.show(data.msg, {
+          cssClass: 'alert-danger',
+          timeout: 5000});
+        this.router.navigate(['/login']);
+      }
+    });
+  }
+
 }
