@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
   //this._flashMessagesService.show('Success User added !!', { cssClass: 'alert-success' } );
   //this._flashMessagesService.show('Failure!', { cssClass: 'alert-danger' } );
   
-  console.log(user);
+
 
   // Required Fields
   if (!this.validateService.validateRegister(user)) {

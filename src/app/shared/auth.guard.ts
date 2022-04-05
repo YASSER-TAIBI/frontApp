@@ -10,12 +10,12 @@ export class AuthGuard implements CanActivate {
   constructor(private auth : AuthService, private router: Router){
   }
   canActivate(){
-   if(this.auth.isTokenExpired){
-    return true;
+   if(this.auth.isTokenExpired()){
+    alert("Vous n'êtes pas connecté");
+    this.router.navigate(['login']);
+    return false;
    }
-   alert("Vous n'êtes pas connecté");
-   this.router.navigate(['login']);
-   return false;
+   return true;
   }
   
 }

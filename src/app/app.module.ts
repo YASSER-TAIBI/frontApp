@@ -35,9 +35,6 @@ import { AuthGuard } from './shared/auth.guard';
     HttpClientModule,
     FlashMessagesModule.forRoot(),
     FormsModule
-    //FormBuilder,
-   // FormGroup,
-  //  Validators
   ],
   providers: [
     ValidateService,

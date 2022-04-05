@@ -4,13 +4,14 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import { User } from '../home/models/users.model';
 
 
 
 @Injectable()
 export class AuthService {
   authToken: any;
-  user: any;
+  user: User = new User();
 
   jwtHelperService: JwtHelperService = new JwtHelperService();
 
@@ -29,46 +30,37 @@ export class AuthService {
   authenticateUser(user): Observable<any> {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    //return this.http.post(this.serverPath + '/api/users/authenticate', user, {headers: headers})
+    //return this.http.post(this.serverPath + '/api/users/authenticate', user, {headers: headers});
     return this.http.post('http://localhost:3000/users/login', user, {headers: headers});
   }
 
- // getProfile() {
-  //  let headers = new Headers();
-   // this.loadToken();
-   // headers.append('Authorization', this.authToken);
-   // headers.append('Content-Type', 'application/json');
-   // return this.http.get(this.serverPath + '/api/users/profile', {headers: headers})
-    //  .map(res => res.json());
- // }
+ getProfile(): Observable<any> {
+   let headers = new HttpHeaders();
+   this.loadToken();
+   headers.append('Authorization', this.authToken);
+   headers.append('Content-Type', 'application/json');
+   //return this.http.get(this.serverPath + '/api/users/profile', {headers: headers});
+   return this.http.get('http://localhost:3000/users/profile',{headers: headers});
+ }
 
  storeUserData(token, user) {
-   localStorage.setItem('id_token', token);
+   localStorage.setItem(environment.tokenIndex, token);
    localStorage.setItem('user', JSON.stringify(user));
    // localStorage.setItem('user_name', JSON.stringify(user.username));
     this.authToken = token;
     this.user = user;
   }
 
-  // loadToken() {
-  //   const token = localStorage.getItem('id_token');
-  //   this.authToken = token;
-  // }
-
-  // loadUserName() {
-  //   const userName_stored = localStorage.getItem('user_name');
-  //   this.userName = userName_stored;
-  // }
-
-  getToken() {
+  loadToken() {
     const token = localStorage.getItem(environment.tokenIndex);
-    return token ? token : ''
-}
+    this.authToken = token;
+  }
 
-setToken(token){
-  localStorage.removeItem(environment.tokenIndex);
-  localStorage.setItem(environment.tokenIndex, token)
-}
+  loadCurrentUser() {
+    const currentUser = localStorage.getItem('user');
+    Object.assign(this.user,JSON.parse(currentUser));
+  }
+
 
 isTokenExpired() {
     if (!localStorage.getItem(environment.tokenIndex)) {
@@ -76,17 +68,18 @@ isTokenExpired() {
     }
     let tokenDecoded = this.jwtHelperService.decodeToken(localStorage.getItem(environment.tokenIndex));
     if (tokenDecoded.exp) {
+
         return this.jwtHelperService.isTokenExpired(localStorage.getItem(environment.tokenIndex));
     } else {
         return false;
     }
 }
 
-  // logout() {
-  //   this.authToken = null;
-  //   this.user = null;
-  //   localStorage.clear();
-  // }
+  logout() {
+    this.authToken = null;
+    this.user = null;
+    localStorage.clear();
+  }
 
 
 }
