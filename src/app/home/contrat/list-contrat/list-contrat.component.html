@@ -31,135 +31,34 @@
                                     <label for="selectAll"></label>
                                 </span>
                             </th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Address</th>
+                            <th>Type de Contrat</th>
+                            <th>Nbr heures de travail (Semaine) </th>
+                            <th>Salaire Brut</th>
+                            <th>Nbr Congés Payés (30 Jr)</th>
                             <th>Utilisateur</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <!-- *ngFor= "let [--obj--] of [--list result in component--] " -->
+                        <tr *ngFor="let contrat of contratList">
                             <td>
                                 <span class="custom-checkbox">
                                     <input type="checkbox" id="checkbox1" name="options[]" value="1">
                                     <label for="checkbox1"></label>
                                 </span>
                             </td>
-                            <td>Thomas Hardy</td>
-                            <td>thomashardy@mail.com</td>
-                            <td>89 Chiaroscuro Rd, Portland, USA</td>
-                            <td>
-                                 <!--  dropdown Select Users   -->
-                                 <select class="form-select" id="select1">
-                                    <option selected>Sélectionner...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                  </select>
-
-                            </td>
+                            <td>{{contrat.typeContrat}}</td>
+                            <td>{{contrat.nbrHeure}}</td>
+                            <td>{{contrat.salaireBrut}}</td>
+                            <td>{{contrat.nbrConges}}</td>
+                            <td>{{contrat.utilisateur}}</td>
                             <td>
                                 <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox2" name="options[]" value="1">
-                                    <label for="checkbox2"></label>
-                                </span>
-                            </td>
-                            <td>Dominique Perrier</td>
-                            <td>dominiqueperrier@mail.com</td>
-                            <td>Obere Str. 57, Berlin, Germany</td>
-                            <td>
-                                 <!--  dropdown Select Users   -->
-                                 <select  class="form-select" id="select2">
-                                    <option selected>Sélectionner...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                  </select>
-                            </td>
-                            <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox3" name="options[]" value="1">
-                                    <label for="checkbox3"></label>
-                                </span>
-                            </td>
-                            <td>Maria Anders</td>
-                            <td>mariaanders@mail.com</td>
-                            <td>25, rue Lauriston, Paris, France</td>
-                            <td>
-                               <!--  dropdown Select Users   -->
-                               <select class="form-select" id="select3">
-                                <option selected>Sélectionner...</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                              </select>
-                            </td>
-                            <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox4" name="options[]" value="1">
-                                    <label for="checkbox4"></label>
-                                </span>
-                            </td>
-                            <td>Fran Wilson</td>
-                            <td>franwilson@mail.com</td>
-                            <td>C/ Araquil, 67, Madrid, Spain</td>
-                            <td>
-                                 <!--  dropdown Select Users   -->
-                                 <select class="form-select" id="select4">
-                                    <option selected>Sélectionner...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                  </select>
-                            </td>
-                            <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
-                        </tr>					
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox5" name="options[]" value="1">
-                                    <label for="checkbox5"></label>
-                                </span>
-                            </td>
-                            <td>Martin Blank</td>
-                            <td>martinblank@mail.com</td>
-                            <td>Via Monte Bianco 34, Turin, Italy</td>
-                            <td>
-                                 <!--  dropdown Select Users   -->
-                                 <select class="form-select" id="select5">
-                                    <option selected>Sélectionner...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                  </select>
-                            </td>
-                            <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
-                        </tr> 
+                       
                     </tbody>
                 </table>
                 <div class="clearfix">

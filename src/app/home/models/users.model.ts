@@ -1,9 +1,10 @@
 export class User {
 
-    nom: String;
-    prenom: String;
-    email: String;
-    password: String;
+    _id: string;
+    nom: string;
+    prenom: string;
+    email: string;
+    password: string;
 
   }
 
