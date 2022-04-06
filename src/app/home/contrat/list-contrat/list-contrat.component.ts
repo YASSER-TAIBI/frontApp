@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Contrat } from '../../models/contrat.model';
+import {ContratService } from '../../services/contrat.service';
+//import {} ''
 
 declare var $: any;
 
@@ -9,9 +12,15 @@ declare var $: any;
 })
 export class ListContratComponent implements OnInit {
 
-  constructor() { }
+  contratResult: any;
+  contratList: any;
+
+  constructor(private ContratService: ContratService) { }
 
   ngOnInit() {
+
+     // Find the list Contrat
+    this.getContratList();
 
     $(document).ready(function(){
       // Activate tooltip
@@ -37,7 +46,15 @@ export class ListContratComponent implements OnInit {
       });
     });
 
+  }
 
+  getContratList(){
+this.ContratService.getContrat().subscribe((data: any[]) => {
+  this.contratResult = data;
+  this.contratList = this.contratResult.results;
+  console.log(this.contratList);
+
+});
 
   }
 
