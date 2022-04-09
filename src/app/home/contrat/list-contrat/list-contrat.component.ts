@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Contrat } from '../../models/contrat.model';
+import { Router } from '@angular/router';
 import {ContratService } from '../../services/contrat.service';
-//import {} ''
+import { AuthService } from '../../../shared/auth.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { ValidateService } from '../../../shared/validate.service';
 
 declare var $: any;
 
@@ -12,15 +14,35 @@ declare var $: any;
 })
 export class ListContratComponent implements OnInit {
 
-  contratResult: any;
-  contratList: any;
 
-  constructor(private ContratService: ContratService) { }
+  //cotrat
+  typeContrat: String;
+  nbrHeure: Number;
+  salaireBrut: Number;
+  nbrConges: Number;
+  userId: String;
+
+  contratResult: any;
+  contratList: any[] = [];
+
+  usersResult: any;
+  usersList : any[] = [];
+
+  constructor(
+    private _flashMessagesService: FlashMessagesService,
+    private router: Router,
+    private validateService: ValidateService,
+    private contratService: ContratService,
+    private authService: AuthService) { }
 
   ngOnInit() {
 
      // Find the list Contrat
     this.getContratList();
+
+    // Find the Name of Users in dropdown select Option
+    this.getNameOfUsers();
+
 
     $(document).ready(function(){
       // Activate tooltip
@@ -49,11 +71,47 @@ export class ListContratComponent implements OnInit {
   }
 
   getContratList(){
-this.ContratService.getContrat().subscribe((data: any[]) => {
+this.contratService.getContrat().subscribe((data: any[]) => {
   this.contratResult = data;
   this.contratList = this.contratResult.results;
-  console.log(this.contratList);
 
+});
+
+  }
+
+  getNameOfUsers(){
+
+    this.authService.getusers().subscribe((data: any[]) => {
+      this.usersResult = data;
+      this.usersList = this.usersResult.results;
+      console.log(this.usersList);
+    });
+  }
+
+
+   onAddContratSubmit(){
+  
+    const contrat = {
+
+      typeContrat: this.typeContrat,
+      nbrHeure: this.nbrHeure,
+      salaireBrut: this.salaireBrut,
+      nbrConges: this.nbrConges,
+      utilisateur: this.userId,
+   };
+   //console.log("bien entrer")
+    // Required Fields
+  //  if (!this.validateService.validateRegister(contrat)) {
+  //   this._flashMessagesService.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
+  //   return false;
+  // }
+
+  // add contrat
+ this.contratService.addContrat(contrat).subscribe(data => {
+  this.contratList.push(data.contratDetails);
+    this._flashMessagesService.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
+}, error => {
+  this._flashMessagesService.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
 });
 
   }

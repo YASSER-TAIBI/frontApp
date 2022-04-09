@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 
 import { ContratRoutingModule } from './contrat-routing.module';
 import { ContratComponent } from './contrat.component';
@@ -14,7 +16,8 @@ import { SearchContratComponent } from './search-contrat/search-contrat.componen
   declarations: [ContratComponent, ListContratComponent, AddContratComponent, EditContratComponent, DeleteContratComponent, SearchContratComponent],
   imports: [
     CommonModule,
-    ContratRoutingModule
+    ContratRoutingModule,
+    FormsModule
   ]
 })
 export class ContratModule { }

@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environments.dev';
+import { Contrat } from '../../home/models/contrat.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContratService {
+
+  contrat: Contrat = new Contrat();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -21,6 +25,11 @@ export class ContratService {
   viewContrat(id){
 
     
+  }
+
+  addContrat(contrat): Observable<any>{
+    let url = environment.CONTRAT_BASE_URL+environment.CONTRAT.ADD_CONTRAT
+    return this.httpClient.post(url,contrat);
   }
 
   editContrat(id, contratObj){

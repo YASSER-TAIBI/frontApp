@@ -5,6 +5,7 @@ export const environment = {
     CONTRAT: {
         GET_ALL_CONTRAT: 'list',
         GET_CONTRAT: 'view',
+        ADD_CONTRAT: 'add',
         UPDATE_CONTRAT: 'update',
         DELETE_CONTRAT: 'delete',
         SEARCH_CONTRAT: 'search',

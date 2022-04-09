@@ -81,5 +81,11 @@ isTokenExpired() {
     localStorage.clear();
   }
 
+  getusers(){
+
+    let url= "http://localhost:3000/users/usersall"
+   return this.http.get(url);
+
+ }
 
 }
