@@ -15,6 +15,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { ValidateService } from './shared/validate.service';
 import { AuthService } from './shared/auth.service';
 import { AuthGuard } from './shared/auth.guard';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 //import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -33,8 +34,9 @@ import { AuthGuard } from './shared/auth.guard';
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
+    TooltipModule.forRoot(),
     FlashMessagesModule.forRoot(),
-    FormsModule
+    FormsModule,
   ],
   providers: [
     ValidateService,

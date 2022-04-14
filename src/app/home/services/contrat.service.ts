@@ -32,9 +32,10 @@ export class ContratService {
     return this.httpClient.post(url,contrat);
   }
 
-  editContrat(id, contratObj){
+  editContrat(id, contrat): Observable<any>{
 
-    
+    let url = environment.CONTRAT_BASE_URL+environment.CONTRAT.UPDATE_CONTRAT
+    return this.httpClient.put(url,id,contrat);
   }
 
   deleteContrat(id){

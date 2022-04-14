@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import {ContratService } from '../../services/contrat.service';
 import { AuthService } from '../../../shared/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ValidateService } from '../../../shared/validate.service';
+import { Contrat } from '../../models/contrat.model';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 declare var $: any;
 
@@ -28,12 +31,19 @@ export class ListContratComponent implements OnInit {
   usersResult: any;
   usersList : any[] = [];
 
+  modalRef?: BsModalRef;
+  contrat: Contrat;
+  editForm: FormGroup; 
+
   constructor(
     private _flashMessagesService: FlashMessagesService,
     private router: Router,
     private validateService: ValidateService,
     private contratService: ContratService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private modalService: BsModalService,
+    private fb: FormBuilder 
+    ) { }
 
   ngOnInit() {
 
@@ -44,6 +54,18 @@ export class ListContratComponent implements OnInit {
     this.getNameOfUsers();
 
 
+    this.editForm = this.fb.group({
+      tyContrat: [''],
+      nbH: [''],
+      salBrut: [''],
+      nbConge: [''],
+      utils: ['']
+    } );
+
+//################################################################################################################################################################################
+//################################################################################################################################################################################
+//################################################################################################################################################################################
+//################################################################################################################################################################################
     $(document).ready(function(){
       // Activate tooltip
       $('[data-toggle="tooltip"]').tooltip();
@@ -67,7 +89,10 @@ export class ListContratComponent implements OnInit {
         }
       });
     });
-
+//################################################################################################################################################################################
+//################################################################################################################################################################################
+//################################################################################################################################################################################
+//################################################################################################################################################################################
   }
 
   getContratList(){
@@ -89,6 +114,8 @@ this.contratService.getContrat().subscribe((data: any[]) => {
   }
 
 
+
+ // add contrat
    onAddContratSubmit(){
   
     const contrat = {
@@ -99,14 +126,7 @@ this.contratService.getContrat().subscribe((data: any[]) => {
       nbrConges: this.nbrConges,
       utilisateur: this.userId,
    };
-   //console.log("bien entrer")
-    // Required Fields
-  //  if (!this.validateService.validateRegister(contrat)) {
-  //   this._flashMessagesService.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
-  //   return false;
-  // }
 
-  // add contrat
  this.contratService.addContrat(contrat).subscribe(data => {
   this.contratList.push(data.contratDetails);
     this._flashMessagesService.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
@@ -115,5 +135,43 @@ this.contratService.getContrat().subscribe((data: any[]) => {
 });
 
   }
+
+  onEditContratSubmit(){
+
+    this.contratService.editContrat( this.editForm.value, this.contrat).subscribe(data => {
+
+        this._flashMessagesService.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
+        this.ngOnInit();
+        this.modalService.hide();
+    }, error => {
+      this._flashMessagesService.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+      this.ngOnInit();
+      this.modalService.hide();
+    });
+    
+
+
+
+    // const editURL = 'http://localhost:8888/friends/' + this.editForm.value.id + '/edit';
+    // console.log(this.editForm.value);
+    // this.contratList.put(editURL, this.editForm.value)
+    //   .subscribe((results) => {
+    //     this.ngOnInit();
+    //     this.modalService.dismissAll();
+    //   });
+  }
+
+  
+  openModal(template: TemplateRef<any>, contrat: Contrat) {
+    this.modalRef = this.modalService.show(template);
+    
+    this.editForm.patchValue( {
+      tyContrat: contrat.typeContrat, 
+      nbH: contrat.nbrHeure,
+      salBrut: contrat.salaireBrut,
+      nbConge: contrat.nbrConges,
+      utils: contrat.utilisateur
+    });
+ }
 
 }

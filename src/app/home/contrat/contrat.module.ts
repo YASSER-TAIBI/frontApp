@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { ContratRoutingModule } from './contrat-routing.module';
 import { ContratComponent } from './contrat.component';
@@ -12,12 +12,15 @@ import { DeleteContratComponent } from './delete-contrat/delete-contrat.componen
 import { SearchContratComponent } from './search-contrat/search-contrat.component';
 
 
+
 @NgModule({
   declarations: [ContratComponent, ListContratComponent, AddContratComponent, EditContratComponent, DeleteContratComponent, SearchContratComponent],
   imports: [
     CommonModule,
     ContratRoutingModule,
-    FormsModule
+    FormsModule,
+    ModalModule.forRoot(),
+    ReactiveFormsModule
   ]
 })
 export class ContratModule { }
