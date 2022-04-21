@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environments.dev';
 import { Contrat } from '../../home/models/contrat.model';
 
@@ -22,26 +22,25 @@ export class ContratService {
 
   }
 
-  viewContrat(id){
-
-    
-  }
-
   addContrat(contrat): Observable<any>{
     let url = environment.CONTRAT_BASE_URL+environment.CONTRAT.ADD_CONTRAT
     return this.httpClient.post(url,contrat);
   }
 
-  editContrat(id, contrat): Observable<any>{
-
+  editContrat(contrat): Observable<any>{
+    console.log(contrat);
+    console.log(contrat._id);
     let url = environment.CONTRAT_BASE_URL+environment.CONTRAT.UPDATE_CONTRAT
-    return this.httpClient.put(url,id,contrat);
+    return this.httpClient.put(url,contrat._id,contrat);
   }
 
-  deleteContrat(id){
-
-    
+  deleteContrat(id: any): Observable<any>{
+    console.log(id);
+    let url = environment.CONTRAT_BASE_URL+environment.CONTRAT.DELETE_CONTRAT
+    return this.httpClient.delete(url,id);
   }
+
+
 
   searchContrat(keyword){
 

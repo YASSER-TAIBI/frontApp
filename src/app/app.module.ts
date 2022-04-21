@@ -16,7 +16,7 @@ import { ValidateService } from './shared/validate.service';
 import { AuthService } from './shared/auth.service';
 import { AuthGuard } from './shared/auth.guard';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-//import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -37,6 +37,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     TooltipModule.forRoot(),
     FlashMessagesModule.forRoot(),
     FormsModule,
+    NgxPaginationModule
   ],
   providers: [
     ValidateService,

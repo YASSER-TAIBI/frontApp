@@ -6,7 +6,8 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { ValidateService } from '../../../shared/validate.service';
 import { Contrat } from '../../models/contrat.model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { User } from '../../models/users.model';
 
 declare var $: any;
 
@@ -18,11 +19,12 @@ declare var $: any;
 export class ListContratComponent implements OnInit {
 
 
-  //cotrat
+  //contrat
+  _id: String;
   typeContrat: String;
-  nbrHeure: Number;
-  salaireBrut: Number;
-  nbrConges: Number;
+  nbrHeure: Number=0;
+  salaireBrut: Number=0;
+  nbrConges: Number=0;
   userId: String;
 
   contratResult: any;
@@ -34,6 +36,19 @@ export class ListContratComponent implements OnInit {
   modalRef?: BsModalRef;
   contrat: Contrat;
   editForm: FormGroup; 
+  
+  //Pagination
+  p: number = 1;
+
+  //delete infos
+  idCont:any;
+  tyCont:any;
+  nbrH:any;
+  salaireB:any;
+  nbrC:any;
+  idUser:any;
+
+  user: User = new User();
 
   constructor(
     private _flashMessagesService: FlashMessagesService,
@@ -55,6 +70,7 @@ export class ListContratComponent implements OnInit {
 
 
     this.editForm = this.fb.group({
+      idCrt: [''],
       tyContrat: [''],
       nbH: [''],
       salBrut: [''],
@@ -99,7 +115,6 @@ export class ListContratComponent implements OnInit {
 this.contratService.getContrat().subscribe((data: any[]) => {
   this.contratResult = data;
   this.contratList = this.contratResult.results;
-
 });
 
   }
@@ -109,11 +124,22 @@ this.contratService.getContrat().subscribe((data: any[]) => {
     this.authService.getusers().subscribe((data: any[]) => {
       this.usersResult = data;
       this.usersList = this.usersResult.results;
-      console.log(this.usersList);
+     // console.log(this.usersList);
     });
   }
 
+  handleClear(){
 
+    this.typeContrat = ' ';
+    this.nbrHeure = Number('');
+    this.salaireBrut = Number('');
+    this.nbrConges = Number('');
+    this.userId = ' ';
+  }
+
+  openModalAdd(templateAdd: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(templateAdd);
+ }
 
  // add contrat
    onAddContratSubmit(){
@@ -130,42 +156,61 @@ this.contratService.getContrat().subscribe((data: any[]) => {
  this.contratService.addContrat(contrat).subscribe(data => {
   this.contratList.push(data.contratDetails);
     this._flashMessagesService.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
+    this.handleClear();
+    this.ngOnInit();
+      this.modalService.hide();
 }, error => {
   this._flashMessagesService.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+  this.handleClear();
+  this.ngOnInit();
+      this.modalService.hide();
 });
 
   }
 
   onEditContratSubmit(){
 
-    this.contratService.editContrat( this.editForm.value, this.contrat).subscribe(data => {
+    const contrat = {
 
+      _id: this.editForm.controls['idCrt'].value,
+      typeContrat: this.editForm.controls['tyContrat'].value,
+      nbrHeure: this.editForm.controls['nbH'].value,
+      salaireBrut: this.editForm.controls['salBrut'].value,
+      nbrConges: this.editForm.controls['nbConge'].value,
+      utilisateur: this.editForm.controls['utils'].value
+   };
+
+    this.contratService.editContrat(contrat).subscribe(data => {
+   
+      console.log(contrat);
+      console.log(contrat._id);
+
+      if (data.success) {
+
+        console.log("data: "+data);
+      console.log("data.resulte: "+data.resulte);
+          // for(let contrat of this.contratList){
+
+          //   if(this.editForm.)
+
+          // } 
         this._flashMessagesService.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
         this.ngOnInit();
         this.modalService.hide();
-    }, error => {
+      } else {
       this._flashMessagesService.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
       this.ngOnInit();
       this.modalService.hide();
-    });
+    }
     
-
-
-
-    // const editURL = 'http://localhost:8888/friends/' + this.editForm.value.id + '/edit';
-    // console.log(this.editForm.value);
-    // this.contratList.put(editURL, this.editForm.value)
-    //   .subscribe((results) => {
-    //     this.ngOnInit();
-    //     this.modalService.dismissAll();
-    //   });
+  });
   }
-
   
-  openModal(template: TemplateRef<any>, contrat: Contrat) {
-    this.modalRef = this.modalService.show(template);
+  openModalEdit(templateEdit: TemplateRef<any>, contrat: Contrat) {
+    this.modalRef = this.modalService.show(templateEdit);
     
     this.editForm.patchValue( {
+      idCrt: contrat._id,
       tyContrat: contrat.typeContrat, 
       nbH: contrat.nbrHeure,
       salBrut: contrat.salaireBrut,
@@ -174,4 +219,69 @@ this.contratService.getContrat().subscribe((data: any[]) => {
     });
  }
 
+
+ onDeleteContratSubmit(){
+
+  console.log(this.idCont);
+  this.contratService.deleteContrat(this.idCont).subscribe(data => {
+  
+    if (data.success) {
+
+      console.log("data: "+data);
+    console.log("data.resulte: "+data.resulte);
+
+      this._flashMessagesService.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
+      this.ngOnInit();
+      this.modalService.hide();
+    } else {
+    this._flashMessagesService.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+    this.ngOnInit();
+    this.modalService.hide();
+  }
+  
+});
+
+ }
+
+ openModalDelete(templateDelete: TemplateRef<any>,  contratId: String) {
+  this.modalRef = this.modalService.show(templateDelete);
+  
+
+  for (let contrat in this.contratList) {
+    let item = this.contratList[contrat];
+
+     if(item._id == contratId){
+
+      this.idCont =item._id;
+      this.tyCont=item.typeContrat;
+      this.nbrH=item.nbrHeure;
+      this.salaireB=item.salaireBrut;
+      this.nbrC=item.nbrConges;
+      this.idUser=item.utilisateur;
+
+      break;
+     }
+  }
+ 
+}
+ 
+
+ openUserModal(templateUser: TemplateRef<any>, userId: String) {
+  this.modalRef = this.modalService.show(templateUser);
+  
+
+  for (let user in this.usersList) {
+    let item = this.usersList[user];
+
+     if(item._id == userId){
+
+      document.getElementById('idUser').setAttribute('value', item._id);
+      document.getElementById('nom').setAttribute('value', item.nom);
+      document.getElementById('prenom').setAttribute('value', item.prenom);
+      document.getElementById('email').setAttribute('value', item.email)
+      break;
+     }
+  }
+
+}
 }
