@@ -28,16 +28,19 @@ export class ContratService {
   }
 
   editContrat(contrat): Observable<any>{
-    console.log(contrat);
-    console.log(contrat._id);
-    let url = environment.CONTRAT_BASE_URL+environment.CONTRAT.UPDATE_CONTRAT
-    return this.httpClient.put(url,contrat._id,contrat);
+    let url = environment.CONTRAT_BASE_URL+environment.CONTRAT.UPDATE_CONTRAT+contrat._id
+    return this.httpClient.put(url,contrat);
   }
 
+
   deleteContrat(id: any): Observable<any>{
-    console.log(id);
+    const httpParams = new HttpParams({
+      fromObject:{
+        idContrat: id
+      }
+    });
     let url = environment.CONTRAT_BASE_URL+environment.CONTRAT.DELETE_CONTRAT
-    return this.httpClient.delete(url,id);
+    return this.httpClient.delete(url,{params: httpParams});
   }
 
 

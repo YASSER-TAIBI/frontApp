@@ -36,7 +36,7 @@ export class ListContratComponent implements OnInit {
   modalRef?: BsModalRef;
   contrat: Contrat;
   editForm: FormGroup; 
-  
+
   //Pagination
   p: number = 1;
 
@@ -155,12 +155,12 @@ this.contratService.getContrat().subscribe((data: any[]) => {
 
  this.contratService.addContrat(contrat).subscribe(data => {
   this.contratList.push(data.contratDetails);
-    this._flashMessagesService.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
+    this._flashMessagesService.show("L'ajout du contrat a été réalisée avec succès.", {cssClass: 'alert-success', timeout: 3000});
     this.handleClear();
     this.ngOnInit();
       this.modalService.hide();
 }, error => {
-  this._flashMessagesService.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+  this._flashMessagesService.show("Attention, quelque chose s'est mal passé !", {cssClass: 'alert-danger', timeout: 3000});
   this.handleClear();
   this.ngOnInit();
       this.modalService.hide();
@@ -181,29 +181,15 @@ this.contratService.getContrat().subscribe((data: any[]) => {
    };
 
     this.contratService.editContrat(contrat).subscribe(data => {
-   
-      console.log(contrat);
-      console.log(contrat._id);
-
-      if (data.success) {
-
-        console.log("data: "+data);
-      console.log("data.resulte: "+data.resulte);
-          // for(let contrat of this.contratList){
-
-          //   if(this.editForm.)
-
-          // } 
-        this._flashMessagesService.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
-        this.ngOnInit();
-        this.modalService.hide();
-      } else {
-      this._flashMessagesService.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+      this._flashMessagesService.show("La modification du contrat a été réalisée avec succès.", {cssClass: 'alert-success', timeout: 3000});
       this.ngOnInit();
       this.modalService.hide();
-    }
-    
-  });
+    }, error => {
+      this._flashMessagesService.show("Attention, quelque chose s'est mal passé !", {cssClass: 'alert-danger', timeout: 3000});
+      this.handleClear();
+      this.ngOnInit();
+          this.modalService.hide();
+    });
   }
   
   openModalEdit(templateEdit: TemplateRef<any>, contrat: Contrat) {
@@ -222,25 +208,17 @@ this.contratService.getContrat().subscribe((data: any[]) => {
 
  onDeleteContratSubmit(){
 
-  console.log(this.idCont);
   this.contratService.deleteContrat(this.idCont).subscribe(data => {
-  
-    if (data.success) {
 
-      console.log("data: "+data);
-    console.log("data.resulte: "+data.resulte);
-
-      this._flashMessagesService.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
+      this._flashMessagesService.show('La suppression du contrat a été réalisée avec succès.', {cssClass: 'alert-success', timeout: 3000});
       this.ngOnInit();
       this.modalService.hide();
-    } else {
-    this._flashMessagesService.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-    this.ngOnInit();
-    this.modalService.hide();
-  }
-  
+}, error => {
+  this._flashMessagesService.show("Attention, quelque chose s'est mal passé !", {cssClass: 'alert-danger', timeout: 3000});
+  this.handleClear();
+  this.ngOnInit();
+      this.modalService.hide();
 });
-
  }
 
  openModalDelete(templateDelete: TemplateRef<any>,  contratId: String) {
