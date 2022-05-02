@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 //SERVICE
-import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService } from '../shared/auth.service';
 import { ValidateService } from '../shared/validate.service';
 
@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private _flashMessagesService: FlashMessagesService,
+    private toastr: ToastrService,
     private validateService: ValidateService,
     private authService: AuthService,
     ) { }
@@ -38,30 +38,27 @@ export class RegisterComponent implements OnInit {
       password: this.password,
 
   };
-  //this._flashMessagesService.show('Success User added !!', { cssClass: 'alert-success' } );
-  //this._flashMessagesService.show('Failure!', { cssClass: 'alert-danger' } );
-  
 
 
   // Required Fields
   if (!this.validateService.validateRegister(user)) {
-    this._flashMessagesService.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
+    this.toastr.warning("Merci de remplir tous les champs","WARNING" );
     return false;
   }
   
   // Validate Email
   if (!this.validateService.validateEmail(user.email)) {
-    this._flashMessagesService.show('Please use a valid email', {cssClass: 'alert-danger', timeout: 3000});
+    this.toastr.warning("Veuillez utiliser une adresse e-mail valide","WARNING" );
     return false;
 }
 
   // Register user
   this.authService.registerUser(user).subscribe(data => {
     if (data.success) {
-      this._flashMessagesService.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
+      this.toastr.success("Vous êtes maintenant inscrit et pouvez vous connecter","SUCCESS" );
       this.router.navigate(['/login']);
     } else {
-      this._flashMessagesService.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+      this.toastr.error("Quelque chose s'est mal passé !","ERROR" );
       this.router.navigate(['/register']);
     }
   });

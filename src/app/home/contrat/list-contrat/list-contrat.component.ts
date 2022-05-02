@@ -1,13 +1,11 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
 import {ContratService } from '../../services/contrat.service';
 import { AuthService } from '../../../shared/auth.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { ValidateService } from '../../../shared/validate.service';
 import { Contrat } from '../../models/contrat.model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { User } from '../../models/users.model';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $: any;
 
@@ -51,9 +49,7 @@ export class ListContratComponent implements OnInit {
   user: User = new User();
 
   constructor(
-    private _flashMessagesService: FlashMessagesService,
-    private router: Router,
-    private validateService: ValidateService,
+    private toastr: ToastrService,
     private contratService: ContratService,
     private authService: AuthService,
     private modalService: BsModalService,
@@ -155,12 +151,12 @@ this.contratService.getContrat().subscribe((data: any[]) => {
 
  this.contratService.addContrat(contrat).subscribe(data => {
   this.contratList.push(data.contratDetails);
-    this._flashMessagesService.show("L'ajout du contrat a été réalisée avec succès.", {cssClass: 'alert-success', timeout: 3000});
+  this.toastr.success("L'ajout du contrat a été réalisée avec succès.","SUCCESS" );
     this.handleClear();
     this.ngOnInit();
       this.modalService.hide();
 }, error => {
-  this._flashMessagesService.show("Attention, quelque chose s'est mal passé !", {cssClass: 'alert-danger', timeout: 3000});
+  this.toastr.error("Quelque chose s'est mal passé !","ERROR" );
   this.handleClear();
   this.ngOnInit();
       this.modalService.hide();
@@ -181,11 +177,11 @@ this.contratService.getContrat().subscribe((data: any[]) => {
    };
 
     this.contratService.editContrat(contrat).subscribe(data => {
-      this._flashMessagesService.show("La modification du contrat a été réalisée avec succès.", {cssClass: 'alert-success', timeout: 3000});
+      this.toastr.success("La modification du contrat a été réalisée avec succès.", "SUCCESS");
       this.ngOnInit();
       this.modalService.hide();
     }, error => {
-      this._flashMessagesService.show("Attention, quelque chose s'est mal passé !", {cssClass: 'alert-danger', timeout: 3000});
+     this.toastr.error("Quelque chose s'est mal passé !", "ERROR");
       this.handleClear();
       this.ngOnInit();
           this.modalService.hide();
@@ -210,11 +206,11 @@ this.contratService.getContrat().subscribe((data: any[]) => {
 
   this.contratService.deleteContrat(this.idCont).subscribe(data => {
 
-      this._flashMessagesService.show('La suppression du contrat a été réalisée avec succès.', {cssClass: 'alert-success', timeout: 3000});
+    this.toastr.success("La suppression du contrat a été réalisée avec succès.", "SUCCESS");
       this.ngOnInit();
       this.modalService.hide();
 }, error => {
-  this._flashMessagesService.show("Attention, quelque chose s'est mal passé !", {cssClass: 'alert-danger', timeout: 3000});
+  this.toastr.error("Quelque chose s'est mal passé !", "ERROR");
   this.handleClear();
   this.ngOnInit();
       this.modalService.hide();

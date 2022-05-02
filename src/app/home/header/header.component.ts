@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
+import { ToastrService } from 'ngx-toastr';
+//import { NgToastService } from 'ng-angular-popup';
 import { AuthService } from 'src/app/shared/auth.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class HeaderComponent implements OnInit {
   constructor(  
     public authService: AuthService,
     private router: Router,
-    private flashMessage: FlashMessagesService) { 
+    private toastr: ToastrService,
+    ) { 
       this.authService.loadCurrentUser();
     }
 
@@ -27,10 +29,7 @@ export class HeaderComponent implements OnInit {
   logout(){
 
     this.authService.logout();
-    this.flashMessage.show('You are logged out', {
-      cssClass: 'alert-success',
-      timeout: 3000
-    });
+    this.toastr.success("Vous êtes déconnecté" ,"SUCCESS" );
     this.router.navigate(['/login']);
     return false;
 

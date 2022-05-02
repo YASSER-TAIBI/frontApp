@@ -11,13 +11,13 @@ import { FooterComponent } from './home/footer/footer.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
-import { FlashMessagesModule } from 'angular2-flash-messages';
 import { ValidateService } from './shared/validate.service';
 import { AuthService } from './shared/auth.service';
 import { AuthGuard } from './shared/auth.guard';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import {NgxPaginationModule} from 'ngx-pagination';
-
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -35,9 +35,13 @@ import {NgxPaginationModule} from 'ngx-pagination';
     FontAwesomeModule,
     HttpClientModule,
     TooltipModule.forRoot(),
-    FlashMessagesModule.forRoot(),
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right'
+    }), 
   ],
   providers: [
     ValidateService,

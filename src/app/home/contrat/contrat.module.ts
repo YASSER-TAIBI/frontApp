@@ -23,7 +23,7 @@ import { SearchContratComponent } from './search-contrat/search-contrat.componen
     FormsModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ]
 })
 export class ContratModule { }
