@@ -14,6 +14,7 @@ import { Routes } from '@angular/router';
          { path: 'updatePassword', loadChildren: () => import('../home/update-password/update-password.module').then(m => m.UpdatePasswordModule) },
          { path: 'help', loadChildren: () => import('../home/help/help.module').then(m => m.HelpModule) },        
          { path: '', redirectTo: '/dashboard', pathMatch:'full'},
+         //page error 404
          { path: '**', redirectTo: 'dashboard'},
          
 
