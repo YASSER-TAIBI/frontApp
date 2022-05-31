@@ -27,11 +27,21 @@
         Interface
     </div>
 
-    <!-- Nav Item - Activité -->
+    <!-- Nav Item - Activité Menu -->
+   
     <li class="nav-item">
-        <a class="nav-link" href="activite">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseActivite"
+            aria-expanded="true" aria-controls="collapseActivite">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Activité</span></a>
+            <span>Activités</span>
+        </a>
+        <div id="collapseActivite" class="collapse" aria-labelledby="headingActivite" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Détail de Composant :</h6>
+                <a class="collapse-item" href="activite">Créer Activités</a>
+                <a class="collapse-item" href="listActivite">Liste Activités</a>
+            </div>
+        </div>
     </li>
 
     <!-- Divider -->
@@ -51,7 +61,7 @@
         </a>
         <div id="collapseConges" class="collapse" aria-labelledby="headingConges" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
+                <h6 class="collapse-header">Détail de Composant :</h6>
                 <a class="collapse-item" href="leaveRequest">Demande Congés</a>
                 <a class="collapse-item" href="listLeave">Liste Congés</a>
             </div>
@@ -75,7 +85,7 @@
          </a>
          <div id="collapseReferentiel" class="collapse" aria-labelledby="headingReferentiel" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
-                 <h6 class="collapse-header">Custom Components:</h6>
+                 <h6 class="collapse-header">Détail de Composant :</h6>
                  <a class="collapse-item" href="users">Liste Utilisateur</a>
                  <a class="collapse-item" href="contrat">Liste Contrat</a>
                  <a class="collapse-item" href="service">Liste Service</a>

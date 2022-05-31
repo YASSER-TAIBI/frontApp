@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ScheduleComponent, EventSettingsModel, View, EventRenderedArgs, DayService,WeekService, WorkWeekService, MonthService, ResizeService, DragAndDropService} from '@syncfusion/ej2-angular-schedule';
 import{DataManager, UrlAdaptor}from '@syncfusion/ej2-data';
-import { ActiviteService } from '../../home/services/activite.service';
 
 
 @Component({
