@@ -2,15 +2,14 @@ export const environment = {
     production: false,
     BASE_URL: 'http://localhost:3000',
     CONTRAT_BASE_URL: 'http://localhost:3000/contrat/',
-    ACTIVITE_BASE_URL: 'http://localhost:3000/activite/',
+    USERS_BASE_URL: 'http://localhost:3000/users/',
 
-    ACTIVITE: {
-      GET_ALL_ACTIVITE: 'list',
-      GET_ACTIVITE: 'view',
-      ADD_ACTIVITE: 'add',
-      UPDATE_ACTIVITE: 'update/',
-      DELETE_ACTIVITE: 'delete',
-      SEARCH_ACTIVITE: 'search',
+    USERS: {
+      GET_ALL_USERS: 'list',
+      GET_USERS: 'view',
+      UPDATE_USERS: 'update/',
+      DELETE_USERS: 'delete',
+      SEARCH_USERS: 'search',
 },
 
     CONTRAT: {

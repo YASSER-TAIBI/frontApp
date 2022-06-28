@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ScheduleComponent, EventSettingsModel, View, EventRenderedArgs, DayService,WeekService, WorkWeekService, MonthService, ResizeService, DragAndDropService} from '@syncfusion/ej2-angular-schedule';
-import{DataManager, UrlAdaptor}from '@syncfusion/ej2-data';
-
+import {ScheduleComponent, EventSettingsModel, View, EventRenderedArgs, DayService,WeekService, WorkWeekService, MonthService, ResizeService, DragAndDropService, ActionEventArgs} from '@syncfusion/ej2-angular-schedule';
+import{DataManager, UrlAdaptor, Query}from '@syncfusion/ej2-data';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-activite',
@@ -13,31 +13,17 @@ import{DataManager, UrlAdaptor}from '@syncfusion/ej2-data';
 export class ActiviteComponent implements OnInit {
 
 
-// //   activiteResult: any;
-// //   activiteList: any[] = [];
+   user: any;
 
+  constructor(
+    private authService: AuthService) { 
+      this.user = this.authService.user;
+      this.dataQuery.addParams("IdUser", this.user.id);
+      this.eventSettings.query =  this.dataQuery;
+    }
 
    titre= 'activite-app';
    public setView: View ="Day";
-// // //  public setDate;
-// //   public dateParser(data: string) {
-// //     return new Date(data);
-// //   }
- 
-  
-// //   public selectedDate;
-// //   public data: Object[];
-// //   public eventSettings: EventSettingsModel = {
-     
-// //       dataSource: [],
-// //  fields:{
-
-// //       subject: {name: 'EventTitle'},
-// //       startTime: {name: 'EventStart'},
-// //       endTime: {name: 'EventEnd'}
-// //     }
-// //   };
- 
 
 private dataManager: DataManager = new DataManager({
   url: 'http://localhost:5000/GetData',
@@ -45,72 +31,27 @@ private dataManager: DataManager = new DataManager({
   adaptor: new UrlAdaptor,
   crossDomain: true
 });
-public eventSettings: EventSettingsModel = { dataSource: this.dataManager };
+
+
+private dataQuery: Query = new Query();
+
+public eventSettings: EventSettingsModel = { dataSource: this.dataManager};
 public selectedDate: Date;
-  ngOnInit() {
-    this.selectedDate = new Date();
-  //  console.log(this.eventSettings)
-  //   this.getActiviteList();
-
   
-      
 
+//>>>>>>>>>>> ajouter une ligne "idUser" dans le document <<<<<<<<<<<<<<
 
-    // this.setDate = new Date();
-
-    
-   
-
- 
-
-    // this.eventSettings = {  dataSource: [{
-
-    //         EventTitle: 'Explosion of Betelgeuse Star',
-    //         EventStart: new Date(2022, 4, 13, 9, 30),
-    //         EventEnd: new Date(2022, 4, 13, 11, 0)
-    //     }],
-    
-    
-    //     fields:{
-    
-    //       subject: {name: 'EventTitle'},
-    //       startTime: {name: 'EventStart'},
-    //       endTime: {name: 'EventEnd'}
-    //     } };
-
+public onActionBegin(args: ActionEventArgs): void {
+  if (args.requestType === 'eventCreate') {
+    // This block will execute once an appointment is created
+    args.addedRecords[0].IdUser = this.user.id;
   }
+}
 
-  // getActiviteList(){
+ngOnInit() {
+    this.selectedDate = new Date();
+   // this.getUserConnected();
+}
 
-  //   this.selectedDate = new Date();
-
-
-  //   this.activiteService.getActivite().subscribe((data: any[]) => {
-  //     this.activiteResult = data;
-  //     this.activiteList = this.activiteResult.results;
-
-  //     var dataSource : {
-  //       EventTitle : string,
-  //       EventStart : Date,
-  //       EventEnd : Date
-  //     }[] = []
-
-  //    for (let activite in this.activiteList) {
-  //       let item = this.activiteList[activite];
-    
-  //       console.log("item.titreActivite :"+item.titreActivite);
-  //       console.log("item.debutActivite :"+item.debutActivite);
-  //       console.log("item.finActivite :"+item.finActivite);
-
-  //        dataSource.push({EventTitle : item.titreActivite, EventStart: new Date(2022, 4, 15, 9, 30),
-  //         EventEnd: new Date(2022, 4, 15, 11, 0)});
-
-  //     }  
-
-  //     this.eventSettings.dataSource = dataSource
-  //     console.log(this.eventSettings)
-
-  //   });
-  // }
 
 }

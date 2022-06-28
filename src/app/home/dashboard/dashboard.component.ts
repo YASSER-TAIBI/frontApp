@@ -42,11 +42,11 @@ export class DashboardComponent implements OnInit {
   getContratByUserConnected() {
 
     this.authService.getProfile().subscribe(data => {
-      console.log(data);
+     // console.log(data);
       this.user = data.user;
-      console.log(this.user._id);
+     // console.log(this.user._id);
 
-      console.log(this.contratList);
+     // console.log(this.contratList);
       for (let contrat in this.contratList) {
         let item = this.contratList[contrat];
 
