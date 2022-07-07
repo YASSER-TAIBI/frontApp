@@ -147,7 +147,7 @@
           <select class="form-control" aria-label="Default select example" [(ngModel)]="userId" name="userId"
             id="exampleidUser">
             <option selected>Sélectionner...</option>
-            <option *ngFor="let user of usersList" value="{{user._id}}">{{user.nom}}</option>
+            <option *ngFor="let user of usersList" value="{{user._id}}">{{user.nom+" "+user.prenom}}</option>
           </select>
         </div>
 
@@ -208,7 +208,7 @@
           <div class="input-group">
             <select class="form-control" formControlName="utils" aria-label="Default select example">
               <option selected>Sélectionner...</option>
-              <option *ngFor="let user of usersList" value="{{user._id}}">{{user.nom}}</option>
+              <option *ngFor="let user of usersList" value="{{user._id}}">{{user.nom+" "+user.prenom}}</option>
             </select>
           </div>
         </div>

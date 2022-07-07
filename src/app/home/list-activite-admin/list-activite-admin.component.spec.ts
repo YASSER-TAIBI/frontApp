@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeleteContratComponent } from './delete-contrat.component';
+import { ListActiviteAdminComponent } from './list-activite-admin.component';
 
-describe('DeleteContratComponent', () => {
-  let component: DeleteContratComponent;
-  let fixture: ComponentFixture<DeleteContratComponent>;
+describe('ListActiviteAdminComponent', () => {
+  let component: ListActiviteAdminComponent;
+  let fixture: ComponentFixture<ListActiviteAdminComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DeleteContratComponent ]
+      declarations: [ ListActiviteAdminComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeleteContratComponent);
+    fixture = TestBed.createComponent(ListActiviteAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

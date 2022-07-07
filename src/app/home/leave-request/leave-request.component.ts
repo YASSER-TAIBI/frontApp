@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeaveRequestComponent implements OnInit {
 
+  public typeConge: Array<string> = ["Congé Annuel","Congé Quarantaine","Congé Parental","Congé Maladie"];
+
   constructor() { }
 
   ngOnInit(): void {

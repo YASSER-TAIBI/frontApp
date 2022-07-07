@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ScheduleComponent, EventSettingsModel, View, EventRenderedArgs, DayService,WeekService, WorkWeekService, MonthService,YearService, ResizeService, DragAndDropService} from '@syncfusion/ej2-angular-schedule';
-import{DataManager, UrlAdaptor}from '@syncfusion/ej2-data';
+import{DataManager, UrlAdaptor, Query}from '@syncfusion/ej2-data';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-list-activite',
@@ -12,6 +13,15 @@ import{DataManager, UrlAdaptor}from '@syncfusion/ej2-data';
 export class ListActiviteComponent implements OnInit {
 
 
+  user: any;
+
+  constructor(
+    private authService: AuthService) { 
+      this.user = this.authService.user;
+      this.dataQuery.addParams("IdUser", this.user.id);
+      this.eventSettings.query =  this.dataQuery;
+    }
+
   titre= 'activite-app';
   public setView: View[] =["WorkWeek","Month","Year"];
   public showWeekNumber: boolean = true;
@@ -22,6 +32,9 @@ export class ListActiviteComponent implements OnInit {
     adaptor: new UrlAdaptor,
     crossDomain: true
   });
+
+  private dataQuery: Query = new Query();
+
   public eventSettings: EventSettingsModel = { dataSource: this.dataManager };
   public selectedDate: Date;
 
