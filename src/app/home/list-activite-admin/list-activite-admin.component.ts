@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ScheduleComponent, EventSettingsModel, View, EventRenderedArgs, DayService,WeekService, WorkWeekService, MonthService,YearService, ResizeService, DragAndDropService} from '@syncfusion/ej2-angular-schedule';
 import{DataManager, UrlAdaptor, Query}from '@syncfusion/ej2-data';
 import { AuthService } from '../../shared/auth.service';
@@ -12,6 +12,9 @@ import { AuthService } from '../../shared/auth.service';
 })
 export class ListActiviteAdminComponent implements OnInit {
 
+  @ViewChild('scheduleObj') 
+
+  public scheduleObj: ScheduleComponent; 
    userId: string="";
 
    usersResult: any;
@@ -47,6 +50,15 @@ export class ListActiviteAdminComponent implements OnInit {
     this.dataQuery.addParams("IdUser", this.userId);
    
     this.eventSettings.query =  this.dataQuery;
+    
+  }
+
+  changeUser() {
+
+    this.scheduleObj.eventSettings.query.params[0].value = this.userId;
+
+    this.scheduleObj.refreshEvents();
+
   }
 
   ngOnInit() {

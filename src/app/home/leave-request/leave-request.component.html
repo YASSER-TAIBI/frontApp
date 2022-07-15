@@ -5,7 +5,7 @@
         <h1 class="h3 mb-0 text-gray-800">Demande Congés</h1>
     </div>
 
-    <form class="row">
+    <div class="row">
 
         <div class="col-md-6">
 
@@ -105,61 +105,64 @@
                     <h6 class="m-0 font-weight-bold text-primary">DÉPOSER UNE DEMANDE DE CONGÉ</h6>
                 </div>
                 <div class="card-body">
+                    <form (submit)="onAddCongeSubmit()" class="conge">
                     <div class="row">
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">Type de Congé</label>
-                                <div class="input-group">
-                                    <select class="form-control" aria-label="Default select example">
-                                        <option value="">Sélectionner...</option>
-                                        <option *ngFor="let tyCg of typeConge" value="{{tyCg}}">{{tyCg}}</option>
-                                    </select>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Type de Congé</label>
+                                    <div class="input-group">
+                                        <select class="form-control" aria-label="Default select example" [(ngModel)]="typeCng" name="typeCng"
+                                        id="exampleidUser">
+                                            <option value="">Sélectionner...</option>
+                                            <option *ngFor="let tyCg of listTypeConge" value="{{tyCg}}">{{tyCg}}</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">À partir du</label>
-                                <div class="input-group">
-                                    <input id="startDate" class="form-control" type="date" />
-                                    <span id="startDateSelected"></span>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">À partir du</label>
+                                    <div class="input-group">
+                                        <input id="startDate" class="form-control" type="date" [(ngModel)]="dtDebut" name="dtDebut" />
+                                        <span id="startDateSelected"></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Jusqu'au</label>
-                                <div class="input-group">
-                                    <input id="endDate" class="form-control" type="date" />
-                                    <span id="endDateSelected"></span>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Jusqu'au</label>
+                                    <div class="input-group">
+                                        <input id="endDate" class="form-control" type="date" [(ngModel)]="dtFin" name="dtFin"/>
+                                        <span id="endDateSelected"></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">Raison</label>
-                                <div class="input-group">
-                                    <textarea class="form-control" placeholder="Écrivez un message ici..."></textarea>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Raison</label>
+                                    <div class="input-group">
+                                        <textarea class="form-control"
+                                            placeholder="Écrivez un message ici..." [(ngModel)]="raison" name="raison"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <div class="col-md-12">
-                            <br>
-                            <button class="btn btn-primary form-control">Envoyer</button>
-                        </div>
-
+                            <div class="col-md-12">
+                                <br>
+                                <button type="submit" class="btn btn-success" class="btn btn-primary form-control">Envoyer</button>
+                            </div>
                     </div>
+                </form>
                 </div>
             </div>
         </div>
 
-    </form>
+    </div>
 
 
 
