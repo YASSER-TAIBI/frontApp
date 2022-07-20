@@ -9,14 +9,14 @@ import {CongeService } from '../services/conge.service';
 })
 export class ListLeaveComponent implements OnInit {
 
- //conge
-  tpConge: any;
-  dtDebut: any;
-  dtFin: any;
-  dtDemande: any;
-  raison: any;
-  avis: any;
-  utilisateur: any;
+//  //conge
+//   tpConge: any;
+//   dtDebut: any;
+//   dtFin: any;
+//   dtDemande: any;
+//   raison: any;
+//   avis: any;
+//   utilisateur: any;
 
   congeResult: any;
   congeList: any[] = [];

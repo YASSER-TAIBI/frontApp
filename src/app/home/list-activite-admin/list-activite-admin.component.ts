@@ -64,7 +64,7 @@ export class ListActiviteAdminComponent implements OnInit {
   ngOnInit() {
 
      this.selectedDate = new Date();
-     this.getNameOfUsers();
+    this.getNameOfUsers();
   }
 
   getNameOfUsers(){

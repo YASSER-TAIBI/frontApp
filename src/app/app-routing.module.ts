@@ -15,7 +15,6 @@ const routes: Routes = [
 children : FULL_ROUTES, canActivate: [AuthGuard]
 
 }
-
 ];
 
 @NgModule({

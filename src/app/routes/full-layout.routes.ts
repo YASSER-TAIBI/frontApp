@@ -12,6 +12,7 @@ import { Routes } from '@angular/router';
          { path: 'service', loadChildren: () => import('../home/service/service.module').then(m => m.ServiceModule) } ,
          { path: 'leaveRequest', loadChildren: () => import('../home/leave-request/leave-request.module').then(m => m.LeaveRequestModule) }, 
          { path: 'listLeave', loadChildren: () => import('../home/list-leave/list-leave.module').then(m => m.ListLeaveModule) }, 
+         { path: 'listLeaveAdmin', loadChildren: () => import('../home/list-leave-admin/list-leave-admin.module').then(m => m.ListLeaveAdminModule) },
          { path: 'profile', loadChildren: () => import('../home/profile/profile.module').then(m => m.ProfileModule) }, 
          { path: 'updatePassword', loadChildren: () => import('../home/update-password/update-password.module').then(m => m.UpdatePasswordModule) },
          { path: 'help', loadChildren: () => import('../home/help/help.module').then(m => m.HelpModule) },        
