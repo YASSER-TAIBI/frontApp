@@ -76,6 +76,18 @@ isTokenExpired() {
     }
 }
 
+isHasRoles(roles: string[]): boolean {
+  if (this.isTokenExpired()) return false;
+    this.loadCurrentUser();
+  for (let role of roles) {
+    if (this.user.userRole == role) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
   logout() {
     this.authToken = null;
     this.user = null;
