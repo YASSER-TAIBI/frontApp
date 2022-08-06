@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   prenom: String;
   email: String;
   password: String;
-
+  userRole: String = "user";
 
   constructor(
     private router: Router,
@@ -36,8 +36,9 @@ export class RegisterComponent implements OnInit {
       prenom: this.prenom,
       email: this.email,
       password: this.password,
+      userRole: this.userRole,
 
-  };
+    };
 
 
   // Required Fields

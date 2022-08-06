@@ -18,6 +18,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RoleGuard } from './shared/role.guard';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [
     ValidateService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    RoleGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -47,18 +47,10 @@ export class ListActiviteAdminComponent implements OnInit {
 
     console.log(this.userId);
 
-    this.dataQuery.addParams("IdUser", this.userId);
-   
-    this.eventSettings.query =  this.dataQuery;
-    
-  }
-
-  changeUser() {
-
     this.scheduleObj.eventSettings.query.params[0].value = this.userId;
 
     this.scheduleObj.refreshEvents();
-
+    
   }
 
   ngOnInit() {
