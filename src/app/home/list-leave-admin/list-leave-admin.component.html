@@ -2,8 +2,10 @@
 
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Liste Conge</h1>
+    <h1 class="h3 mb-0 text-gray-800">Consultation Congé -AD-</h1>
   </div>
+
+
   <div class="content-wrapper">
 
     <div class="table-responsive">
@@ -15,13 +17,15 @@
           </div>
           <div class="form-group mx-sm-3 mb-4">
             <div class="input-group">
-              <select [(ngModel)]="userId" name="userId" (change)="onListActiviteByUser()" class="form-control"
+              <select [(ngModel)]="userId" name="userId" (ngModelChange)="onListActiviteByUser()" class="form-control"
                 aria-label="Default select example">
                 <option value="">Sélectionner un utilisateur...</option>
                 <option *ngFor="let user of usersList" value="{{user._id}}">{{user.nom+" "+user.prenom}}</option>
               </select>
             </div>
           </div>
+          <button id="addButton" type="button" content="Add"
+                  (click)="onValideCongeSubmit()">ADD</button>
         </form>
 
         <div class="table-title">
@@ -60,7 +64,8 @@
                 <a class="refuse" (click)="openModalRefuse(templateRefuser,conge)"><i class="material-icons gpp_bad"
                     data-toggle="tooltip" title="Refuser">&#xf012;</i></a>
 
-                <button #addButton ejs-button id="addButton" type="button" content="Add" (click)="onValideCongeSubmit(conge)"></button>
+                <button #addButton ejs-button id="addButton" type="button" content="Add"
+                  (click)="onValideCongeSubmit()"></button>
               </td>
             </tr>
 
@@ -68,16 +73,16 @@
         </table>
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
-        <ejs-schedule #scheduleObj width="100%" height="756px" [eventSettings]="eventSettings" [selectedDate]="selectedDate"
-        [(currentView)]="setView" >
-       <e-views>
-           <!-- <e-view option="Day" startHour="09:00" endHour="18:00"></e-view> -->
-           <e-view option= "WorkWeek" startHour="09:00" endHour="18:00" [readonly]="isReadOnly"></e-view>
-           <e-view option= "Month" [readonly]="isReadOnly"></e-view>
-           <e-view option= "Year" [showWeekNumber]="showWeekNumber" [readonly]="isReadOnly"></e-view>
-        </e-views>
+        <ejs-schedule #scheduleObj width="100%" height="756px" [eventSettings]="eventSettings"
+          [selectedDate]="selectedDate" [(currentView)]="setView">
+          <e-views>
+            <!-- <e-view option="Day" startHour="09:00" endHour="18:00"></e-view> -->
+            <e-view option="WorkWeek" startHour="09:00" endHour="18:00" [readonly]="isReadOnly"></e-view>
+            <e-view option="Month" [readonly]="isReadOnly"></e-view>
+            <e-view option="Year" [showWeekNumber]="showWeekNumber" [readonly]="isReadOnly"></e-view>
+          </e-views>
 
-      </ejs-schedule><br>
+        </ejs-schedule><br>
 
         <div class="card" style="width: 50rem;">
           <div class="card-body">
@@ -92,6 +97,7 @@
           </div>
 
         </div>
+
       </div>
     </div>
   </div>
@@ -141,7 +147,8 @@
         </table>
 
         <div class="modal-footer">
-          <button #addButton ejs-button id="addButton" type="button" content="Add" (click)="onValideCongeSubmit()"></button>
+          <button #addButton ejs-button id="addButton" type="button" content="Add"
+            (click)="onValideCongeSubmit()"></button>
           <button type="button" class="btn btn-secondary" aria-label="Close" (click)="modalRef?.hide()">Fermer</button>
         </div>
       </form>
@@ -149,55 +156,55 @@
 
   </ng-template>
 
- <!-- Refuser Modal -->
+  <!-- Refuser Modal -->
 
- <ng-template #templateRefuser>
-  <div class="modal-header">
-    <h5 class="modal-title pull-left" id="exampleModalLabel">Refuser un Congé</h5>
-    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <h5 class="text-danger">Voulez-vous vraiment refuser ce <strong><u>congé</u></strong> ?</h5>
-      <table>
-        <tr>
-          <td>Utilisateur: </td>
-          <td>{{utils}}</td>
-        </tr>
-        <tr>
-          <td>Type Congé: </td>
-          <td>{{tyCng}}</td>
-        </tr>
-        <tr>
-          <td>Date Début de Congé: </td>
-          <td>{{dtD}}</td>
-        </tr>
-        <tr>
-          <td>Date Fin de Congé: </td>
-          <td>{{dtF}}</td>
-        </tr>
-        <tr>
-          <td>Date Demande de Congé: </td>
-          <td>{{dtDm}}</td>
-        </tr>
-        <tr>
-          <td>Raison: </td>
-          <td>{{raison}}</td>
-        </tr>
-        <tr>
-          <td>Etat: </td>
-          <td>{{etat}}</td>
-        </tr>
-      </table>
+  <ng-template #templateRefuser>
+    <div class="modal-header">
+      <h5 class="modal-title pull-left" id="exampleModalLabel">Refuser un Congé</h5>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <h5 class="text-danger">Voulez-vous vraiment refuser ce <strong><u>congé</u></strong> ?</h5>
+        <table>
+          <tr>
+            <td>Utilisateur: </td>
+            <td>{{utils}}</td>
+          </tr>
+          <tr>
+            <td>Type Congé: </td>
+            <td>{{tyCng}}</td>
+          </tr>
+          <tr>
+            <td>Date Début de Congé: </td>
+            <td>{{dtD}}</td>
+          </tr>
+          <tr>
+            <td>Date Fin de Congé: </td>
+            <td>{{dtF}}</td>
+          </tr>
+          <tr>
+            <td>Date Demande de Congé: </td>
+            <td>{{dtDm}}</td>
+          </tr>
+          <tr>
+            <td>Raison: </td>
+            <td>{{raison}}</td>
+          </tr>
+          <tr>
+            <td>Etat: </td>
+            <td>{{etat}}</td>
+          </tr>
+        </table>
 
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" (click)="onRefuseCongeSubmit()">Refuser</button>
-        <button type="button" class="btn btn-secondary" aria-label="Close" (click)="modalRef?.hide()">Fermer</button>
-      </div>
-    </form>
-  </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" (click)="onRefuseCongeSubmit()">Refuser</button>
+          <button type="button" class="btn btn-secondary" aria-label="Close" (click)="modalRef?.hide()">Fermer</button>
+        </div>
+      </form>
+    </div>
 
-</ng-template>
+  </ng-template>
 </div>
