@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../../environments/environments.dev';
+import { environmentDev } from '../../../environments/environments.dev';
 import { Contrat } from '../../home/models/contrat.model';
 
 
@@ -17,18 +17,18 @@ export class ContratService {
 
   getContrat(){
 
-     let url= environment.CONTRAT_BASE_URL+environment.CONTRAT.GET_ALL_CONTRAT
+     let url= environmentDev.CONTRAT_BASE_URL+environmentDev.CONTRAT.GET_ALL_CONTRAT
     return this.httpClient.get(url);
 
   }
 
   addContrat(contrat): Observable<any>{
-    let url = environment.CONTRAT_BASE_URL+environment.CONTRAT.ADD_CONTRAT
+    let url = environmentDev.CONTRAT_BASE_URL+environmentDev.CONTRAT.ADD_CONTRAT
     return this.httpClient.post(url,contrat);
   }
 
   editContrat(contrat): Observable<any>{
-    let url = environment.CONTRAT_BASE_URL+environment.CONTRAT.UPDATE_CONTRAT+contrat._id
+    let url = environmentDev.CONTRAT_BASE_URL+environmentDev.CONTRAT.UPDATE_CONTRAT+contrat._id
     return this.httpClient.put(url,contrat);
   }
 
@@ -39,7 +39,7 @@ export class ContratService {
         idContrat: id
       }
     });
-    let url = environment.CONTRAT_BASE_URL+environment.CONTRAT.DELETE_CONTRAT
+    let url = environmentDev.CONTRAT_BASE_URL+environmentDev.CONTRAT.DELETE_CONTRAT
     return this.httpClient.delete(url,{params: httpParams});
   }
 

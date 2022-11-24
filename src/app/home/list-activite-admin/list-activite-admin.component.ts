@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {ScheduleComponent, EventSettingsModel, View, EventRenderedArgs, DayService,WeekService, WorkWeekService, MonthService,YearService, ResizeService, DragAndDropService} from '@syncfusion/ej2-angular-schedule';
+import {ScheduleComponent, EventSettingsModel, View, EventRenderedArgs, DayService,WeekService, WorkWeekService, MonthService,YearService, ResizeService, DragAndDropService, ActionEventArgs} from '@syncfusion/ej2-angular-schedule';
 import{DataManager, UrlAdaptor, Query}from '@syncfusion/ej2-data';
 import { AuthService } from '../../shared/auth.service';
 
@@ -13,9 +13,9 @@ import { AuthService } from '../../shared/auth.service';
 export class ListActiviteAdminComponent implements OnInit {
 
   @ViewChild('scheduleObj') 
-
   public scheduleObj: ScheduleComponent; 
-   userId: string="";
+   
+  userId: string="";
 
    usersResult: any;
    usersList : any[] = [];
@@ -36,12 +36,20 @@ export class ListActiviteAdminComponent implements OnInit {
     crossDomain: true
   });
 
-  private dataQuery: Query = new Query().addParams("IdUser","");
+  private dataQuery: Query = new Query().addParams("IdUser", "");
 
   public eventSettings: EventSettingsModel = { dataSource: this.dataManager,query : this.dataQuery };
   
   public selectedDate: Date;
 
+  //>>>>>>>>>>> ajouter une ligne "idUser" dans le document <<<<<<<<<<<<<<
+
+public onActionBegin(args: ActionEventArgs): void {
+  if (args.requestType === 'eventCreate') {
+    // This block will execute once an appointment is created
+    args.addedRecords[0].IdUser = this.userId;
+  }
+}
   
   onListActiviteByUser(){
 
@@ -61,7 +69,7 @@ export class ListActiviteAdminComponent implements OnInit {
 
   getNameOfUsers(){
 
-    this.authService.getusers().subscribe((data: any[]) => {
+    this.authService.getUsers().subscribe((data: any[]) => {
       this.usersResult = data;
       this.usersList = this.usersResult.results;
     });

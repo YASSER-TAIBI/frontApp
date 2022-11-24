@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../../environments/environments.dev';
+import { environmentDev } from '../../../environments/environments.dev';
 import { Conge } from '../../home/models/conge.model';
 
 
@@ -17,7 +17,7 @@ export class CongeService {
 
   getConge(){
 
-     let url= environment.CONGE_BASE_URL+environment.CONGE.GET_ALL_CONGE
+     let url= environmentDev.CONGE_BASE_URL+environmentDev.CONGE.GET_ALL_CONGE
     return this.httpClient.get(url);
 
   }
@@ -29,18 +29,18 @@ export class CongeService {
         idUser: id
       }
     });
-    let url= environment.CONGE_BASE_URL+environment.CONGE.GET_CONGE
+    let url= environmentDev.CONGE_BASE_URL+environmentDev.CONGE.GET_CONGE
    return this.httpClient.get(url,{params: httpParams});
 
  }
 
   addConge(conge): Observable<any>{
-    let url = environment.CONGE_BASE_URL+environment.CONGE.ADD_CONGE
+    let url = environmentDev.CONGE_BASE_URL+environmentDev.CONGE.ADD_CONGE
     return this.httpClient.post(url,conge);
   }
 
   editConge(conge): Observable<any>{
-    let url = environment.CONGE_BASE_URL+environment.CONGE.UPDATE_CONGE+conge._id
+    let url = environmentDev.CONGE_BASE_URL+environmentDev.CONGE.UPDATE_CONGE+conge._id
     return this.httpClient.put(url,conge);
   }
 
@@ -51,7 +51,7 @@ export class CongeService {
         idConge: id
       }
     });
-    let url = environment.CONGE_BASE_URL+environment.CONGE.DELETE_CONGE
+    let url = environmentDev.CONGE_BASE_URL+environmentDev.CONGE.DELETE_CONGE
     return this.httpClient.delete(url,{params: httpParams});
   }
 

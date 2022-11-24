@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import { environmentDev } from '../../environments/environments.dev';
 import { User } from '../home/models/users.model';
 
 
@@ -94,11 +95,30 @@ isHasRoles(roles: string[]): boolean {
     localStorage.clear();
   }
 
-  getusers(){
 
-    let url= "http://localhost:3000/users/usersall"
+// ********************************* Service User **********************************************************************************
+  
+  getUsers(){
+
+    let url= environmentDev.USERS_BASE_URL+environmentDev.USERS.GET_ALL_USERS
    return this.http.get(url);
 
  }
+
+ editUsers(user): Observable<any>{
+  let url = environmentDev.USERS_BASE_URL+environmentDev.USERS.UPDATE_USERS+user._id
+  return this.http.put(url,user);
+}
+
+
+deleteUsers(id: any): Observable<any>{
+  const httpParams = new HttpParams({
+    fromObject:{
+      idUser: id
+    }
+  });
+  let url = environmentDev.USERS_BASE_URL+environmentDev.USERS.DELETE_USERS
+  return this.http.delete(url,{params: httpParams});
+}
 
 }
