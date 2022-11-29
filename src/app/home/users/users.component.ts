@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AuthService } from '../../shared/auth.service';
+import { ServiceService } from '../../home/services/service.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { User } from '../models/users.model';
@@ -29,10 +30,13 @@ export class UsersComponent implements OnInit {
     num_adresse: Number;
     postal_adresse: Number;
     userRole: String;
-    idService: String
+    idService: String;
 
  usersResult: any;
  usersList : any[] = [];
+
+ serviceResult: any;
+ serviceList : any[] = [];
 
  modalRef?: BsModalRef;
  //user: User;
@@ -54,6 +58,8 @@ rueAdsUs: any;
 numAdsUs: any;
 postalAdsUs: any;
 roleUsUs: any;
+serviceUs: any;
+
 
 public listRoleUser: Array<string> = ["admin", "user"];
 public listCivilite: Array<string> = ["M.", "Mme", "Mlle"];
@@ -61,6 +67,7 @@ public listCivilite: Array<string> = ["M.", "Mme", "Mlle"];
   constructor(
     private toastr: ToastrService,
     private authService: AuthService,
+    private serviceService: ServiceService,
     private modalService: BsModalService,
     private fb: FormBuilder 
   ) { }
@@ -68,6 +75,8 @@ public listCivilite: Array<string> = ["M.", "Mme", "Mlle"];
   ngOnInit(): void {
 
     this.getNameOfUsers();
+
+    this.getNameOfService();
 
     this.editForm = this.fb.group({
       idUs: [''],
@@ -81,11 +90,21 @@ public listCivilite: Array<string> = ["M.", "Mme", "Mlle"];
       rueAds: [''],
       numAds: [''],
       postalAds: [''],
-      roleUs: ['']
+      roleUs: [''],
+      serv: ['']
     } );
 
   }
 
+
+  getNameOfService(){
+
+    this.serviceService.getService().subscribe((data: any[]) => {
+      this.serviceResult = data;
+      this.serviceList = this.serviceResult.results;
+      console.log(this.serviceList);
+    });
+  }
 
   getNameOfUsers(){
 
@@ -131,7 +150,8 @@ public listCivilite: Array<string> = ["M.", "Mme", "Mlle"];
       rueAds: user.rue_adresse,
       numAds: user.num_adresse,
       postalAds: user.postal_adresse,
-      roleUs: user.userRole
+      roleUs: user.userRole,
+      serv: user.idService,
     });
  }
 
@@ -150,7 +170,8 @@ public listCivilite: Array<string> = ["M.", "Mme", "Mlle"];
     rue_adresse: this.editForm.controls['rueAds'].value,
     num_adresse: this.editForm.controls['numAds'].value,
     postal_adresse: this.editForm.controls['postalAds'].value,
-    userRole: this.editForm.controls['roleUs'].value
+    userRole: this.editForm.controls['roleUs'].value,
+    idService: this.editForm.controls['serv'].value
 
    };
 
@@ -203,9 +224,28 @@ public listCivilite: Array<string> = ["M.", "Mme", "Mlle"];
         this.numAdsUs =item.num_adresse;
         this.postalAdsUs =item.postal_adresse;
         this.roleUsUs =item.userRole;
+        this.serviceUs =item.idService;
         break;
        }
     }
    
+  }
+
+
+  openServiceModal(templateService: TemplateRef<any>, serviceId: String) {
+    this.modalRef = this.modalService.show(templateService);
+    
+  
+    for (let service in this.serviceList) {
+      let item = this.serviceList[service];
+  
+       if(item._id == serviceId){
+  
+        document.getElementById('idServ').setAttribute('value', item._id);
+        document.getElementById('nom').setAttribute('value', item.nomService);
+        break;
+       }
+    }
+  
   }
 }

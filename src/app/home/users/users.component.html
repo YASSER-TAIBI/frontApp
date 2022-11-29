@@ -6,11 +6,8 @@
   </div>
 
   <div class="content-wrapper">
-
-    
     <div class="table-responsive">
       <div class="table-wrapper">
-
         <div class="table-title">
           <div class="row">
             <div class="input-group mb-3 col-sm-6">
@@ -40,7 +37,7 @@
               <th>Num Adresse</th>
               <th>Code Postal</th>
               <th>Role Utilisateur</th>
-              <!-- <th>ID Service</th> -->
+              <th>ID Service</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -59,7 +56,7 @@
               <td>{{user.num_adresse}}</td>
               <td>{{user.postal_adresse}}</td>
               <td>{{user.userRole}}</td>
-              <!-- <td><a (click)="openUserModal(templateUser, user.service)">{{user.idService}}</a></td> -->
+              <td><a (click)="openServiceModal(templateService, user.idService)">{{user.idService}}</a></td>
               <td>
 
                 <a class="edit" (click)="openModalEdit(templateEdit, user)"><i class="material-icons"
@@ -76,11 +73,11 @@
     </div>
   </div>
   
-  <!-- View User Modal -->
+  <!-- View Service Modal -->
 
-  <!-- <ng-template #templateUser>
+  <ng-template #templateService>
     <div class="modal-header">
-      <h5 class="modal-title pull-left" id="exampleModalLabel">Profil Utilisateur</h5>
+      <h5 class="modal-title pull-left" id="exampleModalLabel">Profil Service</h5>
       <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
         <span aria-hidden="true" class="visually-hidden">&times;</span>
       </button>
@@ -89,27 +86,15 @@
 
       <form>
         <div class="form-group">
-          <label for="utilisateurId">ID Utilisateur</label>
+          <label for="IdService">ID Service</label>
           <div class="input-group">
-            <input id="idUser" class="form-control" readonly>
+            <input id="idServ" class="form-control" readonly>
           </div>
         </div>
         <div class="form-group">
-          <label for="nomUser">Nom</label>
+          <label for="nomService">Nom Service</label>
           <div class="input-group">
             <input id="nom" class="form-control" readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="prenomUser">Prenom</label>
-          <div class="input-group">
-            <input id="prenom" class="form-control" readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="emailAdresse">Email</label>
-          <div class="input-group">
-            <input id="email" class="form-control" readonly>
           </div>
         </div>
       </form>
@@ -120,7 +105,7 @@
     </div>
 
   </ng-template>
- -->
+
 
 
 
@@ -226,15 +211,15 @@
           </div>
         </div>
 
-        <!-- <div class="form-group">
-          <label for="service" class="form-label">Service</label>
+        <div class="form-group">
+          <label for="service" class="form-label">Nom Service</label>
           <div class="input-group">
             <select class="form-control" formControlName="serv" aria-label="Default select example">
               <option selected>Sélectionner...</option>
-              <option *ngFor="let service of serviceList" value="{{service._id}}">{{user.Nom}}</option>
+              <option *ngFor="let service of serviceList" value="{{service._id}}">{{service.nomService}}</option>
             </select>
           </div>
-        </div> -->
+        </div>
 
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary" (click)="onEditUserSubmit()">Modifier</button>
