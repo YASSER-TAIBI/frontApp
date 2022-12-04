@@ -24,8 +24,8 @@
               </select>
             </div>
           </div>
-          <button id="addButton" type="button" content="Add"
-                  (click)="onValideCongeSubmit()">ADD</button>
+          <!-- <button id="addButton" type="button" content="Add"
+                  (click)="onValideCongeSubmit()">ADD</button> -->
         </form>
 
         <div class="table-title">
@@ -64,8 +64,8 @@
                 <a class="refuse" (click)="openModalRefuse(templateRefuser,conge)"><i class="material-icons gpp_bad"
                     data-toggle="tooltip" title="Refuser">&#xf012;</i></a>
 
-                <button #addButton ejs-button id="addButton" type="button" content="Add"
-                  (click)="onValideCongeSubmit()"></button>
+                <!-- <button #addButton ejs-button id="addButton" type="button" content="Add"
+                  (click)="onValideCongeSubmit()"></button> -->
               </td>
             </tr>
 
@@ -76,14 +76,14 @@
         <ejs-schedule #scheduleObj width="100%" height="756px" [eventSettings]="eventSettings"
           [selectedDate]="selectedDate" [(currentView)]="setView">
           <e-views>
-            <!-- <e-view option="Day" startHour="09:00" endHour="18:00"></e-view> -->
-            <e-view option="WorkWeek" startHour="09:00" endHour="18:00" [readonly]="isReadOnly"></e-view>
-            <e-view option="Month" [readonly]="isReadOnly"></e-view>
-            <e-view option="Year" [showWeekNumber]="showWeekNumber" [readonly]="isReadOnly"></e-view>
+          
+            <e-view option="WorkWeek" startHour="09:00" endHour="18:00"></e-view>
+            <e-view option="Month"></e-view>
+            <e-view option="Year" [showWeekNumber]="showWeekNumber"></e-view>
           </e-views>
 
-        </ejs-schedule><br>
-
+        </ejs-schedule>
+        <br>
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6 class="card-title">Ce tableau contient toutes les demandes de congé du personnel, qui attendent votre
@@ -147,8 +147,7 @@
         </table>
 
         <div class="modal-footer">
-          <button #addButton ejs-button id="addButton" type="button" content="Add"
-            (click)="onValideCongeSubmit()"></button>
+          <button type="submit" class="btn btn-primary" (click)="onValideCongeSubmit()">Valider</button>
           <button type="button" class="btn btn-secondary" aria-label="Close" (click)="modalRef?.hide()">Fermer</button>
         </div>
       </form>

@@ -31,7 +31,7 @@ export class ListActiviteAdminComponent implements OnInit {
 
   private dataManager: DataManager = new DataManager({
     url: 'http://localhost:5000/GetData',
-    crudUrl: 'http://localhost:5000/BatchData',
+    crudUrl: 'http://localhost:5000/BatchDataByUser',
     adaptor: new UrlAdaptor,
     crossDomain: true
   });

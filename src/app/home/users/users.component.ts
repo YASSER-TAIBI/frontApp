@@ -102,7 +102,7 @@ public listCivilite: Array<string> = ["M.", "Mme", "Mlle"];
     this.serviceService.getService().subscribe((data: any[]) => {
       this.serviceResult = data;
       this.serviceList = this.serviceResult.results;
-      console.log(this.serviceList);
+      //console.log(this.serviceList);
     });
   }
 
@@ -111,7 +111,7 @@ public listCivilite: Array<string> = ["M.", "Mme", "Mlle"];
     this.authService.getUsers().subscribe((data: any[]) => {
       this.usersResult = data;
       this.usersList = this.usersResult.results;
-      console.log(this.usersList);
+      //console.log(this.usersList);
     });
   }
 
