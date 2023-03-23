@@ -1,4 +1,4 @@
-# FrontApp
+# Compte Rendu d’Activité (CRA) --Partie FrontEnd--
 
 ###### Vous pouvez consulter la partie [BackEnd](https://github.com/YASSER-TAIBI/backApp)
 
