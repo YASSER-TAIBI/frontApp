@@ -1,27 +1,9 @@
 # FrontApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+###### Vous pouvez consulter la partie [BackEnd](https://github.com/YASSER-TAIBI/backApp)
 
-## Development server
+--FR--
+Le compte rendu d’activité (CRA) est un outil de rapport consistant à justifier l’ensemble du travail accompli sur une période par un consultant ou un salarié porté pour le compte de son client. Le compte rendu d’activité est utilisé par les responsables ou les clients du consultant. Il sert à vérifier le temps et la charge de travail, la productivité, et l’avancement d’un projet en cours. Le site « CR Activity » va permettre aux utilisateurs d’ajouter et d’inscrire leurs activités et les taches effectuées ainsi que le temps que ça leur a pris. Ce projet consiste à proposer une solution pour la gestion des salariées afin de partager les taches, les activités et aussi un espace pour trouver leurs documents (Salaire, nombre de conge, type de contrat...), et permets aussi aux utilisateurs de demandé des congés.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+--EN--
+The activity report (CRA) is a reporting tool consisting in justifying all the work done over a period by a consultant or an employee carried out on behalf of his client. The activity report is used by the consultant's managers or clients. It is used to check the time and workload, productivity, and progress of an ongoing project. The « CR Activity » site will allow users to add and register their activities and the tasks performed as well as the time it took them. This project consists of proposing a solution for the management of employees in order to share tasks, activities and also a space to find their documents (Salary, number of holidays, type of contract...), and also allow users to request leave.
